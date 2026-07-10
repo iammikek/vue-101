@@ -1,0 +1,93 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #1f2937;
+  background: #f8fafc;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+a { color: #2563eb; text-decoration: none; }
+a.router-link-active { font-weight: 600; }
+
+.app { min-height: 100vh; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+.nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.badge {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.75rem;
+}
+.main { max-width: 960px; margin: 0 auto; padding: 1.25rem; }
+.panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+}
+.toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.list { list-style: none; padding: 0; margin: 0; }
+.list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.field { display: grid; gap: 0.35rem; margin-bottom: 0.85rem; }
+input, select, textarea, button {
+  font: inherit;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+button, .button {
+  display: inline-block;
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+button.secondary, .button.secondary {
+  background: white;
+  color: #1f2937;
+  border-color: #cbd5e1;
+}
+.linkish {
+  background: none;
+  border: none;
+  color: #2563eb;
+  padding: 0;
+}
+.banner {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  margin-bottom: 1rem;
+}
+.error { color: #b91c1c; }
+.metrics { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.metric {
+  padding: 0.85rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f8fafc;
+}
