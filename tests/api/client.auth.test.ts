@@ -1,25 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ApiError, createHttpClient } from '../../src/api/client'
+import { createHttpClient } from '../../src/api/client'
+import { jsonResponse } from './helpers'
 
-function jsonResponse(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  })
-}
-
-describe('createHttpClient', () => {
+describe('createHttpClient auth', () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())
   })
 
   afterEach(() => {
     vi.unstubAllGlobals()
-  })
-
-  it('normalizes trailing slash on base URL', async () => {
-    const client = createHttpClient('http://localhost:8000/')
-    expect(client.baseUrl).toBe('http://localhost:8000')
   })
 
   it('sends Bearer token on authenticated requests', async () => {
@@ -66,34 +55,5 @@ describe('createHttpClient', () => {
         body: new URLSearchParams({ username: 'user@example.com', password: 'secret' }),
       }),
     )
-  })
-
-  it('builds item list query params', async () => {
-    const client = createHttpClient('http://localhost:8000')
-    vi.mocked(fetch).mockResolvedValueOnce(jsonResponse({ items: [], total: 0, skip: 5, limit: 10 }))
-
-    await client.listItems({ skip: 5, limit: 10, category_id: 2, name_contains: 'widget' })
-
-    expect(fetch).toHaveBeenCalledWith(
-      'http://localhost:8000/items?skip=5&limit=10&category_id=2&name_contains=widget',
-      expect.any(Object),
-    )
-  })
-
-  it('throws ApiError on non-OK responses', async () => {
-    const client = createHttpClient('http://localhost:8000')
-    vi.mocked(fetch).mockResolvedValueOnce(new Response('Unauthorized', { status: 401 }))
-
-    const err = await client.getHealth().catch((e) => e)
-    expect(err).toBeInstanceOf(ApiError)
-    expect(err).toMatchObject({ status: 401, body: 'Unauthorized' })
-  })
-
-  it('updates access token via setAccessToken', () => {
-    const client = createHttpClient('http://localhost:8000')
-    expect(client.accessToken).toBeNull()
-
-    client.setAccessToken('new-token')
-    expect(client.accessToken).toBe('new-token')
   })
 })
